@@ -1,0 +1,37 @@
+{
+  "name": "avalonbay-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config jestconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidrocks88/avalonbay-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidrocks88/avalonbay-api/issues"
+  },
+  "homepage": "https://github.com/davidrocks88/avalonbay-api#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "fetch": "^1.1.0",
+    "node-html-parser": "^1.2.20",
+    "path": "^0.12.7"
+  }
+}
