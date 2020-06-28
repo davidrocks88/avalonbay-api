@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config jestconfig.json"
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "fetch": "^1.1.0",
+    "format": "^0.2.2",
     "node-html-parser": "^1.2.20",
     "path": "^0.12.7"
   }
