@@ -1,5 +1,5 @@
 const fetchUrl = require("fetch").fetchUrl;
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 
 const baseUrl = "https://www.avaloncommunities.com/";
 const baseAPIUrl = "https://api.avalonbay.com";
@@ -16,9 +16,9 @@ export interface CommunitySearchResult {
 }
 
 export interface ApartmentUnit {
-    "id" : string;
+    "id": string;
     "communityID": string;
-    "apartmentNumber" : string;
+    "apartmentNumber": string;
     "apartmentAddress": string;
     "price": Number;
     "size": Number;
@@ -39,8 +39,8 @@ export async function search(keyword: string): Promise<CommunitySearchResult[]> 
         else {
             fetchUrl(`${baseAPIUrl}/search.json?query=${keyword}`, function (error: any, meta: any, body: any) {
                 if (meta.status === 200) {
-                    let parsedBody : CommunitySearchResult[] = JSON.parse(body).results;
-                    parsedBody = parsedBody.filter((a : CommunitySearchResult) => a.id !== null)
+                    let parsedBody: CommunitySearchResult[] = JSON.parse(body).results;
+                    parsedBody = parsedBody.filter((a: CommunitySearchResult) => a.id !== null)
                     resolve(parsedBody);
                 } else {
                     reject(new Error(meta.status));
@@ -69,18 +69,18 @@ export async function searchState(state: string): Promise<CommunitySearchResult[
                         const list = $('.nearby-communities-list, .nearby-communities-list-horizontal')[0];
                         const titles = $('.title');
                         const addresses = $('.address');
-                        const apartments : CommunitySearchResult[] = [];
+                        const apartments: CommunitySearchResult[] = [];
                         for (let i in list.children) {
                             const address = addresses[i].children[0].data;
-                            const apartmentBuilding : CommunitySearchResult = {
-                                    "id": list.children[i].attribs["data-community"],
-                                    "name": titles[i].children[0].children[0]["data"],
-                                    "city": address.split(",")[0].split(" ").slice(-1)[0],
-                                    "state": address.split(",")[1].trim().split(" ")[0],
-                                    "address": address,
-                                    "type": "community",
-                                    "url": `${baseUrl}${titles[i].children[0].attribs['href']}`,
-                                    "count": 0
+                            const apartmentBuilding: CommunitySearchResult = {
+                                "id": list.children[i].attribs["data-community"],
+                                "name": titles[i].children[0].children[0]["data"],
+                                "city": address.split(",")[0].split(" ").slice(-1)[0],
+                                "state": address.split(",")[1].trim().split(" ")[0],
+                                "address": address,
+                                "type": "community",
+                                "url": `${baseUrl}${titles[i].children[0].attribs['href']}`,
+                                "count": 0
                             }
                             apartments.push(apartmentBuilding);
                         }
@@ -88,7 +88,7 @@ export async function searchState(state: string): Promise<CommunitySearchResult[
                     } else {
                         reject(new Error(meta.status));
                     }
-                } catch(error) {
+                } catch (error) {
                     reject(error);
                 }
 
@@ -111,7 +111,7 @@ export async function searchCommunity(comminityID: string): Promise<ApartmentUni
             fetchUrl(`${baseAPIUrl}/json/reply/ApartmentSearch?communityCode=${comminityID}`, function (error: any, meta: any, body: any) {
                 try {
                     if (meta.status === 200) {
-                        const apartmentList : ApartmentUnit[] = [];
+                        const apartmentList: ApartmentUnit[] = [];
                         const results = JSON.parse(body).results;
 
                         for (let floorPlanType of results.availableFloorPlanTypes) {
@@ -119,15 +119,15 @@ export async function searchCommunity(comminityID: string): Promise<ApartmentUni
                                 for (let finishPackage of floorPlan.finishPackages) {
                                     for (let apartment of finishPackage.apartments) {
                                         apartmentList.push({
-                                            "id" : apartment.apartmentCode,
+                                            "id": apartment.apartmentCode,
                                             "communityID": apartment.communityCode,
-                                            "apartmentNumber" : apartment.apartmentNumber,
+                                            "apartmentNumber": apartment.apartmentNumber,
                                             "apartmentAddress": apartment.apartmentAddress,
                                             "price": apartment.pricing.effectiveRent,
                                             "size": apartment.apartmentSize,
                                             "beds": apartment.beds,
                                             "baths": apartment.baths,
-                                            "floor": apartment.floor,  
+                                            "floor": apartment.floor,
                                         })
                                     }
                                 }
@@ -138,7 +138,7 @@ export async function searchCommunity(comminityID: string): Promise<ApartmentUni
                     } else {
                         reject(new Error(meta.status));
                     }
-                } catch(error) {
+                } catch (error) {
                     reject(error);
                 }
             });
