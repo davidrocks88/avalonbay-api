@@ -1,21 +1,24 @@
 {
   "name": "avalonbay-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An api wrapper around avalonapi.com",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --config jestconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidrocks88/avalonbay-api.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["avalonbay", "apartments"],
+  "author": "davidrules88",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/davidrocks88/avalonbay-api/issues"
