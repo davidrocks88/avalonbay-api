@@ -16,7 +16,7 @@ search("camb")
 // Does a search for communnities in a given state
 let communityID;
 searchState("California")
-   .then(communities => communityID = communities[0].id))
+   .then(communities => communityID = communities[0].id)
 
 // Does a search for units within a community
 searchCommunity(communityID)

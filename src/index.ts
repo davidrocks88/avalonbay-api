@@ -141,3 +141,28 @@ export async function searchCommunity(comminityID: string): Promise<ApartmentUni
     }
   });
 }
+
+/**
+ * @returns A list of states that have communities
+ */
+export async function getStates(): Promise<string[]> {
+  return new Promise<string[]>((resolve, reject) => {
+    fetchUrl(`${baseUrl}/apartment-locations`, (error: any, meta: any, body: any) => {
+      try {
+        if (meta.status === 200) {
+          const $ = cheerio.load(body);
+          const states: string[] = [];
+          const stateNodes = $('h3');
+          for (let node of stateNodes) {
+            states.push(node.children[0].children[0].data.trim());
+          }
+          resolve(states);
+        } else {
+          reject(new Error(meta.status));
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+}

@@ -1,4 +1,4 @@
-import { search, searchState, searchCommunity } from '../index';
+import { search, searchState, searchCommunity, getStates } from '../index';
 
 test('Search api - empty string', () => {
   return expect(search('')).rejects.toThrowError('Keyword cannot be empty');
@@ -39,5 +39,13 @@ test('Search Community', async () => {
     expect(apartment['beds']).not.toBeNull();
     expect(apartment['baths']).not.toBeNull();
     expect(apartment['floor']).not.toBeNull();
+  }
+});
+
+test('Get States', async () => {
+  const results = await getStates();
+  expect(results).not.toBeNull();
+  for (let state of results) {
+    expect(state).not.toBeNull();
   }
 });
